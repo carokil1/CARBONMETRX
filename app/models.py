@@ -41,11 +41,11 @@ Returns:
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
-    class EmissionsData(db.Model):
+    #
+    """class EmissionsData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, index=True)
     source = db.Column(db.String)
     amount = db.Column(db.Float)
     unit = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))"""

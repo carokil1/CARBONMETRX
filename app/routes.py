@@ -1,65 +1,60 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, current_app as app
-from flask_login import login_user, logout_user, current_user
-from .forms import RegistrationForm, LoginForm
+from flask import Blueprint, request, jsonify, current_app as app
 from .models import User, db
+from flask_login import login_user, logout_user, current_user
+from sqlalchemy.exc import SQLAlchemyError
 
 bp = Blueprint('main', __name__)
 
 @bp.route('/')
-def home():
-    return app.send_static_file('dist/index.html')
+def index():
+    return app.send_static_file('index.html')
+ 
 
-@bp.route('/register', methods=['GET', 'POST'])
+@bp.route('/api/register', methods=['POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+    try:
+        data = request.json
+        # Check if the user already exists in the database
+        if User.query.filter_by(email=data['email']).first():
+            return jsonify({"message": "Email already registered"}), 400
 
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        print("Form validated and submitted")  # Debugging
-        try:
-            user = User(username=form.username.data, email=form.email.data)
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-            flash('Account created successfully!', 'success')
-            return redirect(url_for('main.login'))
-        except Exception as e:
-            print(f"Error: {e}")  # Log the error for debugging
-            db.session.rollback()  # Rollback in case of error
-    else:
-        print("Form not validated")  # Debugging
-        # New debugging code to print form errors
-        for fieldName, errorMessages in form.errors.items():
-            for err in errorMessages:
-                print(f"{fieldName}: {err}")
-                
-    return render_template('register.html', form=form)
+        # Create a new user instance
+        new_user = User(username=data['username'], email=data['email'])
+        new_user.set_password(data['password'])  # Hash the password
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({"message": "Registration successful"}), 201
 
-@bp.route('/login', methods=['GET', 'POST'])
+    except SQLAlchemyError as e:
+        # Handle database errors
+        db.session.rollback()
+        return jsonify({"message": "Registration failed due to a database error"}), 500
+    except Exception as e:
+        # Handle any other exceptions
+        return jsonify({"message": "Internal Server Error"}), 500
+
+@bp.route('/api/login', methods=['POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+    try:
+        data = request.json
+        user = User.query.filter_by(email=data['email']).first()
+        # Check user credentials
+        if user and user.check_password(data['password']):
+            login_user(user)  # Log in the user if credentials are valid
+            return jsonify({"message": "Login successful"}), 200
+        else:
+            return jsonify({"message": "Invalid email or password"}), 401
+    except Exception as e:
+        # Handle any unexpected exceptions
+        return jsonify({"message": "Internal Server Error"}), 500
 
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password', 'danger')
-            return redirect(url_for('main.login'))
-
-        login_user(user, remember=form.remember.data)
-        return redirect(url_for('main.home'))
-
-    return render_template('login.html', form=form)
-
-@bp.route('/logout')
+@bp.route('/api/logout', methods=['POST'])
 def logout():
-    logout_user()
-    flash('You have been logged out.', 'info')
-    return redirect(url_for('main.home'))
+    try:
+        logout_user()  # Log out the current user
+        return jsonify({"message": "Logout successful"}), 200
+    except Exception as e:
+        # Handle any unexpected exceptions
+        return jsonify({"message": "Internal Server Error"}), 500
 
-""" @bp.route('/init_db')
-def init_db():
-    db.create_all()
-    return "Database tables created." """
+# ... Additional routes ...

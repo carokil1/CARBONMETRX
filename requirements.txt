@@ -1,6 +1,6 @@
 Flask
 Flask-SQLAlchemy
-# pymysql #
+pymysql
 Flask-Migrate
 Flask-WTF
 pycodestyle
