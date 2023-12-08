@@ -1,0 +1,12 @@
+Flask
+Flask-SQLAlchemy
+# pymysql #
+Flask-Migrate
+Flask-WTF
+pycodestyle
+mysql.connector
+flask_mysqldb
+Flask-Login
+email_validator
+Flask-CORS
+
