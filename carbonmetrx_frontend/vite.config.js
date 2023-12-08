@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   build: {
-    OutDir: '../app/static', //Output to Flask's static folder
+    outDir: '../app/static', //Output to Flask's static folder
   },
 });
