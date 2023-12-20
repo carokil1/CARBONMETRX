@@ -13,23 +13,32 @@ import Settings from './components/Login/Settings';
 import Notifications from './components/Login/Notifications';
 import Feedback from './components/Login/Feedback';
 
+// Import CSS Files
+import './styles/app.css'
+
 function App() {
   return (
     <div className="container">
       <Router>
-        <div className = "nav">
-          <nav>
-            <div className="home-flexbox"><Link to="/">landing page</Link></div>
-            <div className="right-flexbox">
-              <div className="features"><Link to="/features">Features</Link></div>
-              <div className="pricing"><Link to="/pricing">Pricing</Link></div>
-              <div className="resources"><Link to="/resources">Resources</Link></div>
-              <div className="login"><Link to="/login">Login</Link></div>
-              <div className="register"><Link to="/register">Register</Link></div> {/* Changed from Signup to Register */}
+        <header>
+          <div className="headline">
+            <div className="column1">
+              <nav>
+                <Link to="/" className="home">Home</Link>
+              </nav>
             </div>
-          </nav>
-        </div>
 
+            <div className="column2">
+              <nav>
+                <div className="features"><Link to="/features">Features</Link></div>
+                <div className="pricing"><Link to="/pricing">Pricing</Link></div>
+                <div className="resources"><Link to="/resources">Resources</Link></div>
+                <div className="login"><Link to="/login">Login</Link></div>
+                <div className="register"><Link to="/register">Register</Link></div> {/* Changed from Signup to Register */}
+              </nav>
+            </div>
+          </div>
+        </header>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/features" element={<Features />} />
@@ -37,7 +46,7 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} /> {/* Changed from /signup to /register */}
-          
+
           {/* Routes for Authenticated Components */}
           <Route path="/dashboard" element={<AuthenticatedDashboard />} />
           <Route path="/analytics" element={<AuthenticatedAnalytics />} />

@@ -1,33 +1,38 @@
 // src/components/Home/Home.jsx
 import React from 'react';
 import './Home.css'; // Import the CSS file
+import '../../styles/app.css';  // Go up two levels to reach the 'styles' folder
 
 const Home = () => {
   return (
-    <div class = "body">
-      <h1>Welcome to CarbonMetrX!</h1>
-      <p>
-        CarbonMetrX is your go-to platform for managing and analyzing carbon emissions.
-        Track your environmental impact and make informed decisions for a sustainable future.
-      </p>
+    <main className="home-container">
+      <div className="background">
+        <img src='/background.png' alt="Background" />
+        <div className="welcome">Welcome to CarbonMetrX!</div>
+        <div className="paragraph">
+          <p>CarbonMetrX is your go-to platform for managing and analyzing carbon emissions.
+          Track your environmental impact and make informed decisions for a sustainable future.</p>
+        </div>
+        <section>
+          <div className="heading">
+            <h>Key Features</h>
+          </div>
+          <div className="list">
+            <ul>Real-time carbon footprint tracking</ul>
+            <ul>Data visualization and analytics</ul>
+            <ul>Personalized recommendations for reducing emissions</ul>
+          </div>  
+        </section>
 
-      <section>
-        <h2>Key Features</h2>
-        <ul>
-          <li>Real-time carbon footprint tracking</li>
-          <li>Data visualization and analytics</li>
-          <li>Personalized recommendations for reducing emissions</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Why Choose CarbonMetrX?</h2>
-        <p>
-          Our platform empowers individuals and businesses to take control of their carbon
-          footprint. Join us in building a greener and more sustainable world.
-        </p>
-      </section>
-    </div>
+        <section>
+            <div className="heading">Why Choose CarbonMetrX?</div>
+            <div className="paragraph">
+              <p>Our platform empowers individuals and businesses to take control of their carbon
+              footprint. Join us in building a greener and more sustainable world.</p>
+            </div>
+        </section>
+      </div>
+    </main>
   );
 };
 
