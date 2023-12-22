@@ -41,11 +41,27 @@ Returns:
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
-    #
-    """class EmissionsData(db.Model):
+    # Add a back reference to the emissions data associated with this user
+    emissions_data = db.relationship('EmissionsData', back_populates='user')
+class EmissionsData(db.Model):
+    """
+    EmissionsData model representing emissions data in the system.
+
+    Attributes:
+        id (int): The unique identifier of the emissions data.
+        source (str): The source of emissions data.
+        amount (float): The amount of emissions data.
+        unit (str): The unit of emissions data.
+        timestamp (datetime): The timestamp of when the emissions data was recorded.
+        user_id (int): The foreign key referencing the user associated with the emissions data.
+    """
     id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.DateTime, index=True)
-    source = db.Column(db.String)
+    source = db.Column(db.String(255))
     amount = db.Column(db.Float)
-    unit = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))"""
+    unit = db.Column(db.String(50))
+    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+   
+    # Defining a reference to the User object associated with this emissions data
+    user = db.relationship('User', back_populates='emissions_data')
+ 
