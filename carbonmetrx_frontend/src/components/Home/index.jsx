@@ -7,7 +7,6 @@ const Home = () => {
   return (
     <main className="home-container">
       <div className="background">
-        <img src='/background.png' alt="Background" />
         <div className="welcome">Welcome to CarbonMetrX!</div>
         <div className="paragraph">
           <p>CarbonMetrX is your go-to platform for managing and analyzing carbon emissions.

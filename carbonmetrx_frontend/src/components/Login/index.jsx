@@ -21,6 +21,7 @@ function Login() {
     // Perform login logic, setLoggedIn(true) on successful login
   };
 
+  
   return (
     <div>
       {isLoggedIn ? (
@@ -38,7 +39,7 @@ function Login() {
         <>
           <h2>Login to Your CarbonMetrX Account</h2>
           {/* Your login form components */}
-          <button onClick={handleLogin}>Login</button>
+          <button className="login-button" onClick={handleLogin}>Login</button>
         </>
       )}
     </div>

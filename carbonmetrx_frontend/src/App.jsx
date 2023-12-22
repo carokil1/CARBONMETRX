@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Features from './components/Features';
 import Pricing from './components/Pricing';
 import Resources from './components/Resources';
+import Emissions from './components/Emissions';
 import Login from './components/Login';
 import Register from './components/Register'; // Renamed Signup to Register
 import AuthenticatedDashboard from './components/Login/AuthenticatedDashboard';
@@ -30,11 +31,11 @@ function App() {
 
             <div className="column2">
               <nav>
-                <div className="features"><Link to="/features">Features</Link></div>
-                <div className="pricing"><Link to="/pricing">Pricing</Link></div>
-                <div className="resources"><Link to="/resources">Resources</Link></div>
-                <div className="login"><Link to="/login">Login</Link></div>
-                <div className="register"><Link to="/register">Register</Link></div> {/* Changed from Signup to Register */}
+                <div><Link to="/features" className="features">Features</Link></div>
+                <div><Link to="/pricing" className="pricing">Pricing</Link></div>
+                <div><Link to="/resources" className="resources">Resources</Link></div>
+                <div><Link to="/login" className="login">Login</Link></div>
+                <div><Link to="/register" className="register">Register</Link></div> {/* Changed from Signup to Register */}
               </nav>
             </div>
           </div>
@@ -45,6 +46,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/emissions" element={<Emissions />} />
           <Route path="/register" element={<Register />} /> {/* Changed from /signup to /register */}
 
           {/* Routes for Authenticated Components */}
