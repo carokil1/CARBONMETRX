@@ -47,6 +47,7 @@ function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/login" element={<Login />} />
           <Route path="/emissions" element={<Emissions />} />
+          {/*<Route path="/login" element={<LoginForm />} /> */}
           <Route path="/register" element={<Register />} /> {/* Changed from /signup to /register */}
 
           {/* Routes for Authenticated Components */}
